@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/UserHistoryPage.css';
+import Header from './Header';
 
-const UserHistoryPage = () => {
+const UserHistoryPage = ({ user }) => {
     const [bets, setBets] = useState([
         {
             id: 1,
@@ -44,6 +45,7 @@ const UserHistoryPage = () => {
 
     return (
         <div className="user-bet-history">
+            <Header user={user} />
             <h1>Історія ставок</h1>
             {bets.map(bet => (
                 <div key={bet.id} className="bet-item">

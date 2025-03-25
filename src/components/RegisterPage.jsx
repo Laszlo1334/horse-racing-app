@@ -8,7 +8,7 @@ const RegisterPage = () => {
       <input type="text" placeholder="Користувач" />
       <input type="password" placeholder="Пароль" />
       <button>Зареєструватись</button>
-      <p>Маєте вже акаунт? <Link to="/">Увійти</Link></p>
+      <p>Маєте вже акаунт? <Link to="/login">Увійти</Link></p>
     </div>
   );
 };

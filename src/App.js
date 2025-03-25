@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
@@ -8,16 +8,18 @@ import UserHistoryPage from './components/UserHistoryPage';
 import AdminHistoryPage from './components/AdminHistoryPage';
 import './styles/App.css';
 
+
 function App() {
+  const [user, setUser] = useState({ username: "user", role: "admin", balance: 8000 });
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/ubets" element={<UserBetsPage />} />
-        <Route path="/abets" element={<AdminBetsPage />} />
-        <Route path="/uhistory" element={<UserHistoryPage />} />
-        <Route path="/ahistory" element={<AdminHistoryPage />} />
+        <Route path="/ubets" element={<UserBetsPage user={user}/>} />
+        <Route path="/abets" element={<AdminBetsPage user={user}/>} />
+        <Route path="/uhistory" element={<UserHistoryPage user={user}/>} />
+        <Route path="/ahistory" element={<AdminHistoryPage user={user}/>} />
       </Routes>
     </Router>
   );

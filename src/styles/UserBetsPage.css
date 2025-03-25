@@ -38,3 +38,9 @@
 .bet-form button:hover {
     background-color: #45a049;
 }
+
+.race-details, .horse-details {
+    padding: 1px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+}

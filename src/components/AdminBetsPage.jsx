@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/AdminBetsPage.css';
+import Header from './Header';
 
-const AdminBetsPage = () => {
+const AdminBetsPage = ({ user }) => {
     const [bets, setBets] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -40,6 +41,7 @@ const AdminBetsPage = () => {
 
     return (
         <div className="admin-bets-container">
+            <Header user={user} />
             <h1>Ставки Адмін</h1>
             <div className="bets-list">
                 {bets.map(bet => (
