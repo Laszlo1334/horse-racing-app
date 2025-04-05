@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const LoginPage = () => {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <div className="container">
       <h1>Вхід</h1>
-      <input type="text" placeholder="Користувач" />
-      <input type="password" placeholder="Пароль" />
-      <button>Увійти</button>
-      <p>Не маєте акаунту? <Link to="/register">Зареєструватись</Link></p>
+      <button onClick={() => loginWithRedirect()}>Увійти</button>
     </div>
   );
 };
