@@ -65,7 +65,7 @@ const UserHistoryPage = ({ user }) => {
         return (
           <div key={`history-${item.placedBetId || index}`} className="bet-item">
             <strong>Номер ставки:</strong> {item.betId} <br />
-            <strong>Placed Bet ID:</strong> {item.placedBetId} <br />
+            <strong>Номер зробленої ставки:</strong> {item.placedBetId} <br />
             <strong>Номер забігу:</strong> <span onClick={() => toggleRaceDetails(item.placedBetId)}>{item.raceId}</span>
             {expandedRace === item.placedBetId && (
               <div className="race-details">

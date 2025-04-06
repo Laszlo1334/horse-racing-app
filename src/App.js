@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
 import UserBetsPage from './components/UserBetsPage';
 import AdminBetsPage from './components/AdminBetsPage';
 import UserHistoryPage from './components/UserHistoryPage';
@@ -32,7 +31,6 @@ function AppRoutes({ appUser, isAuthenticated, isLoading }) {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
       <Route path="/" element={<UserBetsPage user={appUser} />} />
       <Route path="/abets" element={<AdminBetsPage user={appUser} />} />
       <Route path="/uhistory" element={<UserHistoryPage user={appUser} />} />
