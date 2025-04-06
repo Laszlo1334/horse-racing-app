@@ -1,43 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/AdminHistoryPage.css';
 import Header from './Header';
 
 const AdminHistoryPage = ({ user }) => {
-    const [bets, setBets] = useState([
-        {
-            id: 1,
-            userId: 12,
-            amount: 100,
-            status: 'Виграш',
-            winAmount: 250,
-            time: '2025-03-23 12:00'
-        },
-        {
-            id: 2,
-            userId: 34,
-            amount: 150,
-            status: 'Активна',
-            winAmount: 0,
-            time: '2025-03-23 12:30'
-        }
-    ]);
+  const [history, setHistory] = useState([]);
 
-    return (
-        <div className="admin-bet-history">
-            <Header user={user} />
-            <h1>Історія ставок (Адміністратор)</h1>
-            {bets.map(bet => (
-                <div key={bet.id} className="bet-item">
-                    <strong>Номер ставки:</strong> {bet.id} <br />
-                    <strong>ID користувача:</strong> {bet.userId} <br />
-                    <strong>Сума ставки:</strong> {bet.amount} <br />
-                    <strong>Стан ставки:</strong> {bet.status} <br />
-                    <strong>Сума виграшу:</strong> {bet.winAmount} <br />
-                    <strong>Час ставки:</strong> {bet.time}
-                </div>
-            ))}
-        </div>
-    );
+  useEffect(() => {
+    axios.get('http://localhost:8080/admin-history')
+      .then(response => {
+        setHistory(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching admin history:', error);
+      });
+  }, []);
+
+  return (
+    <div className="admin-bet-history">
+      <Header user={user} />
+      <h1>Історія ставок (Адміністратор)</h1>
+      {history.map((item, index) => {
+        const sum = parseFloat(item.sum);
+        const multiplier = parseFloat(item.multiplier);
+        let computedWinAmount = 0;
+        if (item.state === "WIN" || item.state === "ACTIVE") {
+          computedWinAmount = sum * multiplier;
+        }
+
+        return (
+          <div key={`history-${item.placedBetId || index}`} className="bet-item">
+            <strong>Номер Зробленої ставки:</strong> {item.placedBetId} <br />
+            <strong>Номер ставки:</strong> {item.betId} <br />
+            <strong>ID користувача:</strong> {item.userId} <br />
+            <strong>Сума ставки:</strong> {item.sum} <br />
+            <strong>Стан ставки:</strong> {item.state} <br />
+            <strong>Коефіцієнт:</strong> {item.multiplier} <br />
+            <strong>Сума виграшу:</strong> {computedWinAmount} <br />
+            <strong>Час ставки:</strong> {new Date(item.createdAt).toLocaleString()} <br />
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default AdminHistoryPage;
